@@ -1,0 +1,36 @@
+<body>
+    <h2>Adicionar Convidados para o Evento: {{ agenda.espaco_locavel }}</h2>
+    <form method="post">
+      {% csrf_token %}
+      <table>
+        <thead>
+          <tr>
+            <th>Selecionar</th>
+            <th>Nome</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for convidado in existing_convidados %}
+            <tr>
+              <td>
+                <input type="checkbox" name="convidados" value="{{ convidado.id }}">
+              </td>
+              <td>{{ convidado.nome }}</td>
+              <td>{{ convidado.email }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br>
+      <button type="submit">Adicionar Convidados</button>
+    </form>
+  <a href="{% url 'agenda_list' %}">Voltar para a lista de eventos</a>
+
+  <script>
+    function openConvidadoForm() {
+      // Open the convidado_form in a modal window
+      var convidadoWindow = window.open("{% url 'convidado_cadastrar' %}", "convidadoForm", "modal=yes,width=600,height=400");
+    }
+  </script>
+</body>
