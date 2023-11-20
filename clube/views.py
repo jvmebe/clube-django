@@ -183,7 +183,7 @@ class AgendaUpdateView(UpdateView):
     model = Agenda
     form_class = AgendaForm
     template_name = 'agenda/agenda_edit.html'
-    success_url = reverse_lazy('agenda_list')  # Redirect to your agenda list view
+    success_url = reverse_lazy('agenda_list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -210,12 +210,12 @@ def add_convidados(request, agenda_id):
     agenda = Agenda.objects.get(id=agenda_id)
 
     if request.method == 'POST':
-        # Process the form with selected convidados
+        # Processar form com convidados selecionados
         selected_convidados = request.POST.getlist('convidados')
         agenda.convidados.set(selected_convidados)
-        return redirect('agenda_list')  # Redirect to your agenda list view
+        return redirect('agenda_list')  
 
-    # Fetch existing convidados for selection
+    # Fetch dos convidados existentes para seleção
     existing_convidados = Convidado.objects.all()
     convidado_form = ConvidadoForm()
 
@@ -226,12 +226,10 @@ def edit_convidados(request, agenda_id):
     agenda = Agenda.objects.get(id=agenda_id)
 
     if request.method == 'POST':
-        # Process the form with selected convidados
         selected_convidados = request.POST.getlist('convidados')
         agenda.convidados.set(selected_convidados)
-        return redirect('agenda_list')  # Redirect to your agenda list view
+        return redirect('agenda_list')
 
-    # Fetch existing convidados for selection
     existing_convidados = Convidado.objects.all()
     convidado_form = ConvidadoForm()
 

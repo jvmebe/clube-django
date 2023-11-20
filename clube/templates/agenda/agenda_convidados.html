@@ -5,8 +5,8 @@
 
 <body>
   <main class="container">
-      <h2>Adicionar Convidados para o Evento: {{ agenda.espaco_locavel }}</h2>
-      <a href="#" onclick="openPopup()">Cadastrar Convidado</a>
+      <h2>Adicionar convidados para o evento em {{ agenda.espaco_locavel }} dia {{ agenda.data_hora_inicio }} </h2>
+      
 
       <script>
           function openPopup() {
@@ -14,13 +14,21 @@
               var popupUrl = "{% url 'convidado_cadastrar' %}";
 
               // Open a new pop-up window
-              var popupWindow = window.open(popupUrl, 'Popup', 'width=600,height=400');
+              var popupWindow = window.open(popupUrl, 'Popup', 'width=600,height=800');
           }
       </script>
 
         <form method="post">
           {% csrf_token %}
-          <button class="btn btn-primary" type="submit">Adicionar Convidados</button>
+          <button class="btn btn-primary" type="submit">Salvar</button> 
+          <a href="#" class="btn btn-primary" onclick="openPopup()">Cadastrar Novo Convidado</a><br><br>
+
+          <div class="form-group">
+            <label for="search-input">Buscar Convidados:</label>
+            <input type="text" id="search-input" name="search_input" class="form-control">
+          </div>
+          <br><br>
+
           <div class="table-responsive">
             <table class="table table-bordered table-striped">
             <thead>
@@ -46,12 +54,16 @@
           
         </div>
         </form>
-    <a href="{% url 'agenda_list' %}">Voltar para a lista de eventos</a>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+            $(document).ready(function() {
+            $('#search-input').on('input', function() {
+                var searchTerm = $(this).val().toLowerCase();
+                $('table tbody tr').filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(searchTerm) > -1);
+                });
+            });
+            });
+          </script>
   </main>
-  <script>
-    function openConvidadoForm() {
-      // Open the convidado_form in a modal window
-      var convidadoWindow = window.open("{% url 'convidado_cadastrar' %}", "convidadoForm", "modal=yes,width=600,height=400");
-    }
-  </script>
 </body>

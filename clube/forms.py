@@ -1,7 +1,5 @@
 # associados/forms.py
 from django import forms
-from crispy_forms.layout import Layout, Submit, Field
-from crispy_forms.helper import FormHelper
 from .models import *
 
 class AssociadoForm(forms.ModelForm):
@@ -16,14 +14,17 @@ class DependenteForm(forms.ModelForm):
     class Meta:
         model = Dependente
         exclude = ['socio_titular']
-    widgets = {
-            'data_nascimento': forms.DateInput(attrs={'type': 'date'}),
-        }  
+        widgets = {
+                'data_nascimento': forms.DateInput(attrs={'type': 'date'}),
+            }  
 
 class EspacoForm(forms.ModelForm):
     class Meta:
         model = EspacoLocavel
         fields = '__all__'
+        widgets = {
+                'data_construcao_aquisicao': forms.DateInput(attrs={'type': 'date'}),
+            }  
 
 class FornecedorForm(forms.ModelForm):
     class Meta:
