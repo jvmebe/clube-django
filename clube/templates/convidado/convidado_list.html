@@ -5,18 +5,32 @@
 </head>
 <body>
 
+  <script>
+    function openPopup() {
+        // Specify the URL of the Django view
+        var popupUrl = "{% url 'convidado_cadastrar' %}";
+
+        // Open a new pop-up window
+        var popupWindow = window.open(popupUrl, 'Popup', 'width=600,height=400');
+    }
+</script>
     <br>
     <div class="container">
-        <a class="btn btn-primary" href="{% url 'convidado_cadastrar' %}">Cadastrar Convidado</a>
-        <a style="float: right;" class="btn btn-secondary" href="{% url 'index' %}">Menu</a>
+        <a class="btn btn-primary" onclick="openPopup()">Cadastrar Convidado</a>
+        <a style="float: right;" class="btn btn-secondary" href="{% url 'agenda_list' %}">Voltar</a>
         <br><br>
-        <h2>Lista de Fornecedores</h2>
+        <h2>Lista de Convidados</h2>
         <div class="table-responsive">
           <table class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>Nome/Razão Social</th>
-                <th>Contato</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>RG</th>
+                <th>Celular</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th></th>
                 <th></th>
                 <!-- Add more columns as needed -->
               </tr>
@@ -25,9 +39,36 @@
               {% for convidado in object_list %}
                 <tr>
                   <td>{{ convidado.nome }}</td>
-                  <td>{{ convidado.contato }}</td>
-                  <!-- Add more columns as needed -->
-                  
+                  <td>{{ convidado.cpf }}</td>
+                  <td>{{ convidado.rg }}</td>
+                  <td>{{ convidado.celular }}</td>
+                  <td>{{ convidado.telefone }}</td>
+                  <td>{{ convidado.email }}</td>
+                  <td style="text-align: center;" ><a class="btn btn-primary" href="{% url 'convidado_edit' pk=convidado.pk %}">Editar</a></td>
+                  <td style="text-align: center;"><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ convidado.id }}">
+                    Excluir
+                  </button></td>
+                </tr>
+                <div class="modal fade" id="confirmDeleteModal{{ convidado.id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmação de Exclusão</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Tem certeza de que deseja excluir este associado?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <form method="post" action="{% url 'convidado_delete' pk=convidado.pk %}">
+                                {% csrf_token %}
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </tr>
               {% endfor %}
             </tbody>

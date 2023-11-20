@@ -23,7 +23,6 @@ urlpatterns = [
     path('fornecedores/<int:pk>/excluir/', FornecedorDeleteView.as_view(), name='fornecedor_delete'),
     path('agenda/', AgendaListView.as_view(), name='agenda_list'),
     path('convidados/cadastrar/', ConvidadoCreateView.as_view(), name='convidado_cadastrar'),
-    path('convidados/cadastrar/sucesso', ConvidadoSuccess.as_view(), name='convidado_success'),
     path('agenda/cadastrar/', agenda_cadastrar, name='agenda_cadastrar'),
     path('agenda/<int:agenda_id>/add_convidados/', add_convidados, name='add_convidados'),
     path('agenda/<int:pk>/edit/', AgendaUpdateView.as_view(), name='agenda_edit'),
@@ -31,5 +30,7 @@ urlpatterns = [
     path('agenda/<int:pk>/', AgendaDetailView.as_view(), name='agenda_detail'),
     path('agenda/<int:pk>/excluir/', AgendaDeleteView.as_view(), name='agenda_delete'),
     path('convidados/', ConvidadoListView.as_view(), name='convidado_list'),
+    path('convidados/<int:pk>/excluir/', ConvidadoDeleteView.as_view(), name='convidado_delete'),
+    path('convidados/<int:pk>/editar/', ConvidadoUpdateView.as_view(), name='convidado_edit'),
     # Repita o mesmo padrão para outros modelos
 ]

@@ -151,9 +151,18 @@ class ConvidadoCreateView(CreateView):
 class ConvidadoListView(ListView):
     model = Convidado
     template_name = 'convidado/convidado_list.html'
+
+class ConvidadoUpdateView(UpdateView):
+    model = Convidado
+    form_class = ConvidadoForm
+    template_name = 'convidado/convidado_edit.html'
+
+    def get_success_url(self):
+        return reverse_lazy('convidado_list')
     
-class ConvidadoSuccess(View):
-    template_name = 'convidado/convidado_form_success.html'
+class ConvidadoDeleteView(DeleteView):
+    model = Convidado
+    success_url = reverse_lazy('convidado_list')
 
 #views da agenda
 

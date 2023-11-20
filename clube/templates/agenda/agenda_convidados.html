@@ -20,6 +20,7 @@
 
         <form method="post">
           {% csrf_token %}
+          <button class="btn btn-primary" type="submit">Adicionar Convidados</button>
           <div class="table-responsive">
             <table class="table table-bordered table-striped">
             <thead>
@@ -42,7 +43,7 @@
             </tbody>
           </table>
           <br>
-          <button type="submit">Adicionar Convidados</button>
+          
         </div>
         </form>
     <a href="{% url 'agenda_list' %}">Voltar para a lista de eventos</a>

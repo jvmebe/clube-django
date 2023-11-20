@@ -104,9 +104,26 @@ class Convidado(models.Model):
 class Agenda(models.Model):
     espaco_locavel = models.ForeignKey(EspacoLocavel, on_delete=models.CASCADE)
     valor_locacao = models.DecimalField(max_digits=10, decimal_places=2)
-    data_inicio = models.DateField()
-    hora_inicio = models.TimeField()
-    data_fim = models.DateField()
-    hora_fim = models.TimeField()
+    data_hora_inicio = models.DateTimeField()
+    data_hora_fim = models.DateTimeField()
     responsavel_locacao = models.ForeignKey(Associado, on_delete=models.CASCADE)
     convidados = models.ManyToManyField(Convidado, blank=True)
+
+    def clean(self):
+        # Check for overlapping events for the same EspacoLocavel
+        overlapping_events = Agenda.objects.filter(
+            espaco_locavel=self.espaco_locavel,
+            data_hora_inicio__lt=self.data_hora_fim,
+            data_hora_fim__gt=self.data_hora_inicio,
+        ).exclude(pk=self.pk)
+
+        if overlapping_events.exists():
+            raise ValidationError('Este horário já está em uso por outro evento neste local')
+        validate_locavel(self.espaco_locavel)
+
+
+from django.core.exceptions import ValidationError
+
+def validate_locavel(value):
+    if not value.locavel:
+        raise ValidationError('Este espaço não é locável.')

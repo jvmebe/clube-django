@@ -1,3 +1,5 @@
 .venv/
 db.sqlite3
 setup/auth.py
+*.sqlite3
+db.sqlite3

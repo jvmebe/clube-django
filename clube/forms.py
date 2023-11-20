@@ -39,5 +39,9 @@ class AgendaForm(forms.ModelForm):
     class Meta:
         model = Agenda
         exclude = ['convidados']
+        widgets = {
+            'data_hora_inicio': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'data_hora_fim': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
 
 
