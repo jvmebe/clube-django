@@ -141,7 +141,7 @@ class ConvidadoCreateView(CreateView):
     form_class = ConvidadoForm
     template_name = 'convidado/convidado_form.html'
     def get_success_url(self):
-        return reverse_lazy('convidado_success')
+        return reverse_lazy('convidado_cadastrar')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
