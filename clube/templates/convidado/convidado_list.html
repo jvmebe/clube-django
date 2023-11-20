@@ -7,10 +7,8 @@
 
   <script>
     function openPopup() {
-        // Specify the URL of the Django view
         var popupUrl = "{% url 'convidado_cadastrar' %}";
 
-        // Open a new pop-up window
         var popupWindow = window.open(popupUrl, 'Popup', 'width=600,height=700');
     }
 </script>

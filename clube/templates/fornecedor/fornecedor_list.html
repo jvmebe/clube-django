@@ -18,7 +18,6 @@
                 <th>Nome/Razão Social</th>
                 <th>Contato</th>
                 <th></th>
-                <!-- Add more columns as needed -->
               </tr>
             </thead>
             <tbody>
@@ -26,7 +25,6 @@
                 <tr>
                   <td>{{ fornecedor.nome_razao_social }}</td>
                   <td>{{ fornecedor.contato }}</td>
-                  <!-- Add more columns as needed -->
                   <td><a href="{% url 'fornecedor_detail' pk=fornecedor.pk %}">Detalhes</a></td>
                 </tr>
               {% endfor %}
